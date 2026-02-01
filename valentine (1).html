@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Valentine ? 💕</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Raleway:wght@300;400;600&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    min-height: 100vh;
+    background: #0a0a0f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Raleway', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Fond étoilé */
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) infinite alternate;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0.2; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Pétales de roses */
+  .petal {
+    position: fixed;
+    top: -60px;
+    font-size: 18px;
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.5; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Conteneur central */
+  .card {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 50px 40px;
+    max-width: 520px;
+    width: 90%;
+  }
+
+  /* Image au-dessus */
+  .photo-frame {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 28px;
+    border: 3px solid rgba(214,50,80,0.5);
+    box-shadow: 0 0 24px rgba(214,50,80,0.3);
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo-frame .placeholder-text {
+    color: rgba(255,255,255,0.25);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 12px;
+    line-height: 1.5;
+  }
+
+  /* Cœur animé en haut */
+  .heart-icon {
+    font-size: 52px;
+    display: inline-block;
+    animation: heartbeat 1.2s ease-in-out infinite;
+    margin-bottom: 24px;
+    filter: drop-shadow(0 0 12px rgba(220,50,80,0.6));
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15%      { transform: scale(1.15); }
+    30%      { transform: scale(1); }
+    45%      { transform: scale(1.1); }
+  }
+
+  /* Titre principal */
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    color: #f0d0d8;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    text-shadow: 0 0 30px rgba(220,50,80,0.3);
+  }
+
+  .subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  /* Boutons */
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 120px;
+  }
+
+  .btn {
+    position: relative;
+    z-index: 2;
+    border: none;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Bouton YES */
+  .btn-yes {
+    background: linear-gradient(135deg, #d63250, #e84672);
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 16px 44px;
+    box-shadow: 0 4px 24px rgba(214,50,80,0.45);
+    animation: pulse-yes 2s ease-in-out infinite;
+    transition: font-size 0.3s ease, padding 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-yes:hover {
+    box-shadow: 0 6px 32px rgba(214,50,80,0.6);
+  }
+  @keyframes pulse-yes {
+    0%, 100% { box-shadow: 0 4px 24px rgba(214,50,80,0.45); }
+    50%      { box-shadow: 0 4px 36px rgba(214,50,80,0.7); }
+  }
+
+  /* Bouton NO — fuit ! */
+  .btn-no {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    padding: 10px 28px;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: font-size 0.3s ease, padding 0.3s ease, background 0.2s, color 0.2s, transform 0.15s ease;
+  }
+  .btn-no:hover {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* Message après Yes */
+  .yay {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  .yay.show { display: flex; }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .yay .confetti-row {
+    font-size: 28px;
+    margin-bottom: 18px;
+    animation: bounce 0.6s ease;
+  }
+  @keyframes bounce {
+    0%   { transform: scale(0); }
+    60%  { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  .yay .yay-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: #f0d0d8;
+    margin-bottom: 10px;
+  }
+  .yay .yay-sub {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Petits cœurs qui apparaissent après Yes */
+  .heart-burst {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10;
+    font-size: 24px;
+    animation: burstAnim 1.2s ease forwards;
+  }
+  @keyframes burstAnim {
+    0%   { opacity: 1; transform: translate(0,0) scale(0.5); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.4); }
+  }
+
+  /* Lueur ambiance bas de page */
+  .glow-bottom {
+    position: fixed;
+    bottom: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(214,50,80,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="glow-bottom"></div>
+
+<!-- Pétales -->
+<div id="petals"></div>
+
+<div class="card">
+  <div class="photo-frame">
+    <!-- REMPLACE "votre-image.jpg" par le chemin de ton image -->
+    <!-- <img src="votre-image.jpg" alt="" /> -->
+    <div class="placeholder-text">📷 Ton image ici</div>
+  </div>
+
+  <div class="heart-icon">💝</div>
+  <div class="title" id="mainTitle">Will you be my Valentine ?</div>
+  <div class="subtitle" id="mainSub">this is important</div>
+
+  <!-- Buttons -->
+  <div class="buttons" id="buttonsArea">
+    <button class="btn btn-yes" id="btnYes" onclick="onYes()">Yes</button>
+    <button class="btn btn-no"  id="btnNo">No</button>
+  </div>
+
+  <!-- Message Yes -->
+  <div class="yay" id="yay">
+    <div class="confetti-row">🎉💕✨</div>
+    <div class="yay-title">Yay ! You said yes !</div>
+    <div class="yay-sub">forever & ever 💗</div>
+  </div>
+</div>
+
+<script>
+// ─── ÉTOILES ───────────────────────────────────
+(function(){
+  const c = document.getElementById('stars');
+  for(let i = 0; i < 140; i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2.5+0.6;
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${1.5+Math.random()*3}s;animation-delay:${Math.random()*2}s;`;
+    c.appendChild(s);
+  }
+})();
+
+// ─── PÉTALES ───────────────────────────────────
+(function(){
+  const emojis = ['🌹','🌸','🌺','❤️','💐'];
+  for(let i = 0; i < 22; i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    p.style.left = Math.random()*100 + '%';
+    p.style.animationDuration = (6 + Math.random()*8) + 's';
+    p.style.animationDelay = (Math.random()*6) + 's';
+    p.style.fontSize = (14 + Math.random()*16) + 'px';
+    document.body.appendChild(p);
+  }
+})();
+
+// ─── BOUTON NO — fuit & grandit ────────────────
+(function(){
+  const btn = document.getElementById('btnNo');
+  let noCount = 0;
+  const area = document.getElementById('buttonsArea');
+
+  btn.addEventListener('mouseenter', function(){
+    noCount++;
+    // Agrandir le texte et le padding
+    const newSize = 0.85 + noCount * 0.18;
+    const newPad = 10 + noCount * 6;
+    btn.style.fontSize = newSize + 'rem';
+    btn.style.padding = newPad + 'px ' + (newPad * 2.8) + 'px';
+
+    // Faire fuir dans une direction aléatoire
+    const rect = btn.getBoundingClientRect();
+    const areaRect = area.getBoundingClientRect();
+
+    // Choisir une position aléatoire dans la zone, en évitant la position actuelle
+    let tries = 0, x, y;
+    do {
+      x = Math.random() * (areaRect.width - rect.width) - (rect.left - areaRect.left);
+      y = Math.random() * 100 - 50;
+      tries++;
+    } while(tries < 8 && Math.abs(x) < 60 && Math.abs(y) < 30);
+
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+  });
+})();
+
+// ─── BOUTON YES — grandit aussi ────────────────
+(function(){
+  const btn = document.getElementById('btnYes');
+  let yesCount = 0;
+
+  btn.addEventListener('mouseenter', function(){
+    yesCount++;
+    const newSize = 1.1 + yesCount * 0.12;
+    const newPad = 16 + yesCount * 4;
+    btn.style.fontSize = newSize + 'rem';
+    btn.style.padding = newPad + 'px ' + (newPad * 2.75) + 'px';
+  });
+})();
+
+// ─── BOUTON YES click ──────────────────────────
+function onYes(){
+  document.getElementById('btnYes').style.display = 'none';
+  document.getElementById('btnNo').style.display = 'none';
+  document.getElementById('yay').classList.add('show');
+  burstHearts();
+}
+
+// Explosion de cœurs
+function burstHearts(){
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const hearts = ['💕','💗','💖','💝','❤️','💘'];
+  for(let i = 0; i < 18; i++){
+    const el = document.createElement('div');
+    el.className = 'heart-burst';
+    el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    el.style.left = cx + 'px';
+    el.style.top  = cy + 'px';
+    const angle = (Math.random() * 360) * Math.PI / 180;
+    const dist  = 80 + Math.random() * 180;
+    el.style.setProperty('--tx', Math.cos(angle)*dist + 'px');
+    el.style.setProperty('--ty', Math.sin(angle)*dist + 'px');
+    el.style.animationDelay = (Math.random()*0.3) + 's';
+    el.style.fontSize = (18 + Math.random()*18) + 'px';
+    document.body.appendChild(el);
+    setTimeout(()=> el.remove(), 1600);
+  }
+}
+</script>
+</body>
+</html>
