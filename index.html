@@ -15,7 +15,7 @@
 
   body {
     min-height: 100vh;
-    background: #0a0a0f;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,24 +24,7 @@
     position: relative;
   }
 
-  /* Fond étoilé */
-  .stars {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-  }
-  .star {
-    position: absolute;
-    background: #fff;
-    border-radius: 50%;
-    animation: twinkle var(--dur) infinite alternate;
-  }
-  @keyframes twinkle {
-    0% { opacity: 0.2; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1.2); }
-  }
-
-  /* Pétales de roses */
+  /* Pétales de roses (peu au début) */
   .petal {
     position: fixed;
     top: -60px;
@@ -70,14 +53,14 @@
 
   /* Image au-dessus */
   .photo-frame {
-    width: 160px;
-    height: 160px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 28px;
     border: 3px solid rgba(214,50,80,0.5);
-    box-shadow: 0 0 24px rgba(214,50,80,0.3);
-    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 24px rgba(214,50,80,0.25);
+    background: #f5f0f0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,24 +69,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .photo-frame .placeholder-text {
-    color: rgba(255,255,255,0.25);
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 12px;
-    line-height: 1.5;
+    object-position: center center;
   }
 
-  /* Cœur animé en haut */
+  /* Cœur animé */
   .heart-icon {
-    font-size: 52px;
+    font-size: 48px;
     display: inline-block;
     animation: heartbeat 1.2s ease-in-out infinite;
-    margin-bottom: 24px;
-    filter: drop-shadow(0 0 12px rgba(220,50,80,0.6));
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(220,50,80,0.5));
   }
   @keyframes heartbeat {
     0%, 100% { transform: scale(1); }
@@ -112,38 +87,45 @@
     45%      { transform: scale(1.1); }
   }
 
-  /* Titre principal */
+  /* Titre */
   .title {
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-weight: 400;
     font-size: clamp(1.8rem, 5vw, 2.6rem);
-    color: #f0d0d8;
+    color: #c4344f;
     letter-spacing: 1px;
     line-height: 1.4;
-    margin-bottom: 8px;
-    text-shadow: 0 0 30px rgba(220,50,80,0.3);
+    margin-bottom: 6px;
   }
 
   .subtitle {
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.35);
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.3);
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+    min-height: 1.2em;
+    transition: all 0.3s ease;
+  }
+  .subtitle.sad {
+    font-style: italic;
+    color: #d63250;
+    letter-spacing: 1px;
+    font-size: 0.88rem;
   }
 
-  /* Boutons */
+  /* Boutons zone */
   .buttons {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 28px;
+    gap: 32px;
     flex-wrap: wrap;
     position: relative;
-    min-height: 120px;
+    min-height: 100px;
   }
 
   .btn {
@@ -156,42 +138,43 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     border-radius: 50px;
-    transition: transform 0.15s ease, box-shadow 0.2s ease;
     user-select: none;
     -webkit-user-select: none;
   }
 
-  /* Bouton YES */
+  /* Bouton YES — grandit */
   .btn-yes {
     background: linear-gradient(135deg, #d63250, #e84672);
     color: #fff;
     font-size: 1.1rem;
     padding: 16px 44px;
-    box-shadow: 0 4px 24px rgba(214,50,80,0.45);
+    box-shadow: 0 4px 20px rgba(214,50,80,0.4);
     animation: pulse-yes 2s ease-in-out infinite;
-    transition: font-size 0.3s ease, padding 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition: font-size 0.3s ease, padding 0.3s ease, box-shadow 0.2s ease;
   }
   .btn-yes:hover {
-    box-shadow: 0 6px 32px rgba(214,50,80,0.6);
+    box-shadow: 0 6px 30px rgba(214,50,80,0.6);
   }
   @keyframes pulse-yes {
-    0%, 100% { box-shadow: 0 4px 24px rgba(214,50,80,0.45); }
-    50%      { box-shadow: 0 4px 36px rgba(214,50,80,0.7); }
+    0%, 100% { box-shadow: 0 4px 20px rgba(214,50,80,0.4); }
+    50%      { box-shadow: 0 4px 32px rgba(214,50,80,0.65); }
   }
 
-  /* Bouton NO — fuit ! */
+  /* Bouton NO — reste petit, fuit */
   .btn-no {
-    background: rgba(255,255,255,0.07);
-    color: rgba(255,255,255,0.5);
-    font-size: 0.85rem;
-    padding: 10px 28px;
-    border: 1px solid rgba(255,255,255,0.12);
-    transition: font-size 0.3s ease, padding 0.3s ease, background 0.2s, color 0.2s, transform 0.15s ease;
+    background: rgba(0,0,0,0.04);
+    color: rgba(0,0,0,0.35);
+    font-size: 0.78rem;
+    padding: 8px 22px;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: transform 0.25s ease, background 0.2s, color 0.2s;
   }
   .btn-no:hover {
-    background: rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.6);
+    background: rgba(0,0,0,0.07);
+    color: rgba(0,0,0,0.45);
   }
+
+
 
   /* Message après Yes */
   .yay {
@@ -206,8 +189,8 @@
     to   { opacity: 1; transform: translateY(0); }
   }
   .yay .confetti-row {
-    font-size: 28px;
-    margin-bottom: 18px;
+    font-size: 32px;
+    margin-bottom: 16px;
     animation: bounce 0.6s ease;
   }
   @keyframes bounce {
@@ -218,18 +201,19 @@
   .yay .yay-title {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    color: #f0d0d8;
-    margin-bottom: 10px;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: #c4344f;
+    margin-bottom: 6px;
+    line-height: 1.4;
   }
   .yay .yay-sub {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.4);
+    font-size: 0.82rem;
+    color: rgba(0,0,0,0.35);
     letter-spacing: 2px;
     text-transform: uppercase;
   }
 
-  /* Petits cœurs qui apparaissent après Yes */
+  /* Cœurs explosion */
   .heart-burst {
     position: fixed;
     pointer-events: none;
@@ -242,15 +226,15 @@
     100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.4); }
   }
 
-  /* Lueur ambiance bas de page */
+  /* Lueur bas de page */
   .glow-bottom {
     position: fixed;
-    bottom: -120px;
+    bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
     width: 500px;
-    height: 300px;
-    background: radial-gradient(ellipse, rgba(214,50,80,0.12) 0%, transparent 70%);
+    height: 260px;
+    background: radial-gradient(ellipse, rgba(214,50,80,0.08) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
   }
@@ -258,136 +242,141 @@
 </head>
 <body>
 
-<div class="stars" id="stars"></div>
 <div class="glow-bottom"></div>
-
-<!-- Pétales -->
 <div id="petals"></div>
 
 <div class="card">
   <div class="photo-frame">
-    <!-- REMPLACE "votre-image.jpg" par le chemin de ton image -->
-     <img src="dudu_bubu.jpeg" alt="" /> 
-    <div class="placeholder-text">📷</div>
+    <img src="dudu_bubu.jpeg" alt="" />
   </div>
 
   <div class="heart-icon">💝</div>
   <div class="title" id="mainTitle">Will you be my Valentine ?</div>
   <div class="subtitle" id="mainSub">this is important</div>
 
-  <!-- Buttons -->
   <div class="buttons" id="buttonsArea">
     <button class="btn btn-yes" id="btnYes" onclick="onYes()">Yes</button>
     <button class="btn btn-no"  id="btnNo">No</button>
+
   </div>
 
-  <!-- Message Yes -->
   <div class="yay" id="yay">
-    <div class="confetti-row">🎉💕✨</div>
-    <div class="yay-title">Yay ! You said yes !</div>
-    <div class="yay-sub">forever & ever 💗</div>
+    <div class="confetti-row">🌸💕🌷</div>
+    <div class="yay-title">dans tous les cas<br>t'avait pas le choix 😏<br><br>hihi je t'aime</div>
+    <div class="yay-sub">💗 forever & ever 💗</div>
   </div>
 </div>
 
 <script>
-// ─── ÉTOILES ───────────────────────────────────
-(function(){
-  const c = document.getElementById('stars');
-  for(let i = 0; i < 140; i++){
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = Math.random()*2.5+0.6;
-    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${1.5+Math.random()*3}s;animation-delay:${Math.random()*2}s;`;
-    c.appendChild(s);
-  }
-})();
-
-// ─── PÉTALES ───────────────────────────────────
-(function(){
-  const emojis = ['🌹','🌸','🌺','❤️','💐'];
-  for(let i = 0; i < 22; i++){
+// ─── PÉTALES (peu au début) ────────────────────
+let petalCount = 0;
+function createPetals(count) {
+  const emojis = ['🌹','🌸','🌺','🌷','💐','🌼','🌻'];
+  for(let i = 0; i < count; i++){
     const p = document.createElement('div');
     p.className = 'petal';
     p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
     p.style.left = Math.random()*100 + '%';
-    p.style.animationDuration = (6 + Math.random()*8) + 's';
-    p.style.animationDelay = (Math.random()*6) + 's';
-    p.style.fontSize = (14 + Math.random()*16) + 'px';
+    p.style.animationDuration = (5 + Math.random()*7) + 's';
+    p.style.animationDelay = (Math.random()*3) + 's';
+    p.style.fontSize = (14 + Math.random()*18) + 'px';
     document.body.appendChild(p);
+    petalCount++;
   }
-})();
+}
+// Au début, peu de pétales
+createPetals(8);
 
-// ─── BOUTON NO — fuit & grandit ────────────────
+// ─── BOUTON NO — fuit, reste petit, messages tristes ─
 (function(){
   const btn = document.getElementById('btnNo');
-  let noCount = 0;
+  const subtitleEl = document.getElementById('mainSub');
   const area = document.getElementById('buttonsArea');
+
+  const sadMessages = [
+    "je vais manquer tes fesses de chamchoum 😢",
+    "je vais dormir triste cette nuit...",
+    "je vais pleurer 😭",
+    "ta grosse bite va me manquer...",
+    "qui va te dire 'parle moi de toi' le soir ? 💔",
+    "t'es sûr ? :(((",
+    "je suis tellement triste...",
+    "je t'aime moi 😥",
+    "please... 🥺",
+    "mon cœur va se briser si tu dis non...",
+    "je vais me retrouver toute seule... 😢",
+    "t'es vraiment sûr sûr ? 🥺💔"
+    "CHOISI YES"
+  ];
+  let noCount = 0;
 
   btn.addEventListener('mouseenter', function(){
     noCount++;
-    // Agrandir le texte et le padding
-    const newSize = 0.85 + noCount * 0.18;
-    const newPad = 10 + noCount * 6;
-    btn.style.fontSize = newSize + 'rem';
-    btn.style.padding = newPad + 'px ' + (newPad * 2.8) + 'px';
 
-    // Faire fuir dans une direction aléatoire
+    // Afficher un message triste dans le subtitle
+    const msg = sadMessages[Math.floor(Math.random()*sadMessages.length)];
+    subtitleEl.textContent = msg;
+    subtitleEl.classList.add('sad');
+
+    // Faire fuir le bouton
     const rect = btn.getBoundingClientRect();
     const areaRect = area.getBoundingClientRect();
 
-    // Choisir une position aléatoire dans la zone, en évitant la position actuelle
     let tries = 0, x, y;
     do {
-      x = Math.random() * (areaRect.width - rect.width) - (rect.left - areaRect.left);
-      y = Math.random() * 100 - 50;
+      x = (Math.random() - 0.5) * (areaRect.width - 80);
+      y = (Math.random() - 0.5) * 90;
       tries++;
-    } while(tries < 8 && Math.abs(x) < 60 && Math.abs(y) < 30);
+    } while(tries < 8 && Math.abs(x) < 70 && Math.abs(y) < 30);
 
     btn.style.transform = `translate(${x}px, ${y}px)`;
   });
 })();
 
-// ─── BOUTON YES — grandit aussi ────────────────
+// ─── BOUTON YES — grandit à chaque hover ──────
 (function(){
   const btn = document.getElementById('btnYes');
   let yesCount = 0;
 
   btn.addEventListener('mouseenter', function(){
     yesCount++;
-    const newSize = 1.1 + yesCount * 0.12;
-    const newPad = 16 + yesCount * 4;
+    const newSize = 1.1 + yesCount * 0.14;
+    const newPad = 16 + yesCount * 5;
     btn.style.fontSize = newSize + 'rem';
-    btn.style.padding = newPad + 'px ' + (newPad * 2.75) + 'px';
+    btn.style.padding = newPad + 'px ' + (newPad * 2.7) + 'px';
   });
 })();
 
-// ─── BOUTON YES click ──────────────────────────
+// ─── CLICK YES ─────────────────────────────────
 function onYes(){
   document.getElementById('btnYes').style.display = 'none';
   document.getElementById('btnNo').style.display = 'none';
+  document.getElementById('mainSub').style.display = 'none';
   document.getElementById('yay').classList.add('show');
   burstHearts();
+  // Explosion de fleurs massif !
+  createPetals(80);
 }
 
-// Explosion de cœurs
+// ─── EXPLOSION DE CŒURS ───────────────────────
 function burstHearts(){
   const cx = window.innerWidth / 2;
   const cy = window.innerHeight / 2;
-  const hearts = ['💕','💗','💖','💝','❤️','💘'];
-  for(let i = 0; i < 18; i++){
+  const hearts = ['💕','💗','💖','💝','❤️','💘','🌸','🌷','🌹'];
+  for(let i = 0; i < 28; i++){
     const el = document.createElement('div');
     el.className = 'heart-burst';
     el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
     el.style.left = cx + 'px';
     el.style.top  = cy + 'px';
     const angle = (Math.random() * 360) * Math.PI / 180;
-    const dist  = 80 + Math.random() * 180;
+    const dist  = 100 + Math.random() * 220;
     el.style.setProperty('--tx', Math.cos(angle)*dist + 'px');
     el.style.setProperty('--ty', Math.sin(angle)*dist + 'px');
-    el.style.animationDelay = (Math.random()*0.3) + 's';
-    el.style.fontSize = (18 + Math.random()*18) + 'px';
+    el.style.animationDelay = (Math.random()*0.4) + 's';
+    el.style.fontSize = (20 + Math.random()*22) + 'px';
     document.body.appendChild(el);
-    setTimeout(()=> el.remove(), 1600);
+    setTimeout(()=> el.remove(), 1800);
   }
 }
 </script>
